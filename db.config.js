@@ -13,7 +13,7 @@ const mongoose = require("mongoose");
 //const mongoDB = `mongodb+srv://${process.env.DB_LOGIN}:${process.env.DB_PASSWORD}@cluster0.c6uutj6.mongodb.net/?retryWrites=true&w=majority`;
 
 mongoose
-  .connect("mongodb://localhost/tropicrea_database", {
+  .connect(process.env.DB_PATH_LOCAL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
