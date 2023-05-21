@@ -58,8 +58,7 @@ exports.loginUser = (req, res, next) => {
         res.status(401).json({ message: "utilisateur non trouvé" });
       } else {
         session = req.session;
-        session.id = req.body.email;
-        res.status(200).send({ userId: user._id, sessionId: session.id });
+        res.status(200).send({ tropicrea_user_session: user._id });
       }
     })
     .catch((err) => res.status(500).json({ err }));

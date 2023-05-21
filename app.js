@@ -4,7 +4,6 @@ const morgan = require("morgan"); // logger de requetes
 const path = require("path");
 var parseurl = require("parseurl"); //recupére l'url
 const session = require("express-session"); //création session utilisateur avec cookie + compte vues
-const cookieParser = require("cookie-parser");
 const productsRoutes = require("./routers/productsRoutes"); //routeur pour les produits
 const headerpicturesRoutes = require("./routers/headerpicturesRoutes"); //routeur pour les produits
 const lookbookRoutes = require("./routers/lookbookRoutes"); //routeur pour les produits
@@ -28,7 +27,9 @@ const app = express();
 //prévention des erreurs CORS
 app.use(
   cors({
-    origin: "http://127.0.0.1:5173",
+    origin: "*",
+    credentials: true,
+    exposedHeaders: ["set-cookie"],
   })
 );
 

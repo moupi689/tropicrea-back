@@ -2,7 +2,7 @@ const Cart = require("../models/cartModel.js");
 
 //récupération du panier
 exports.getCart = (req, res) => {
-  Cart.findOne({ user: req.sessionID })
+  Cart.findOne({ user: req.params.id })
     .then((cart) => {
       if (cart && cart.items.length > 0) {
         res.status(200).json({ cart });
@@ -15,7 +15,7 @@ exports.getCart = (req, res) => {
 
 //ajout d'un item dans le panier
 exports.addItemToCart = (req, res) => {
-  Cart.findOne({ user: req.sessionID }).then((cart) => {
+  Cart.findOne({ user: req.params.id }).then((cart) => {
     // si panier existe
     if (cart) {
       cart.items.push({
@@ -35,7 +35,7 @@ exports.addItemToCart = (req, res) => {
     } else {
       //pas de panier trouvé > création d'un panier
       const newCart = new Cart({
-        user: req.sessionID,
+        user: req.params.id,
         items: [
           {
             itemId: req.body._id,
@@ -55,7 +55,7 @@ exports.addItemToCart = (req, res) => {
 
 //suppression d'un item dans le panier
 exports.deleteItemFromCart = (req, res) => {
-  Cart.findOne({ user: req.sessionID })
+  Cart.findOne({ _id: req.params.cart })
     .then((cart) => {
       const itemIndex = cart.items.findIndex(
         (item) => item.itemId == req.params.id
@@ -83,7 +83,7 @@ exports.deleteItemFromCart = (req, res) => {
 
 //suppression du panier
 exports.deleteCart = (req, res) => {
-  Cart.deleteOne({ _id: req.params.id })
+  Cart.deleteOne({ _id: req.params.cart })
     .then(() => res.status(200).json({ message: "Panier supprimé !" }))
     .catch((error) => res.status(400).json({ error }));
 };

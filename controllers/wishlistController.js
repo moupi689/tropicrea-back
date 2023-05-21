@@ -2,7 +2,7 @@ const Wishlist = require("../models/wishlistModel.js");
 
 //récupération de la wishlist
 exports.getWishlist = (req, res) => {
-  Wishlist.findOne({ user: req.sessionID })
+  Wishlist.findOne({ user: req.params.id })
     .then((wish) => {
       if (wish && wish.items.length > 0) {
         res.status(200).json({ wish });
@@ -15,7 +15,7 @@ exports.getWishlist = (req, res) => {
 
 //ajout d'un item dans la wishlist
 exports.addItemToWishlist = (req, res) => {
-  Wishlist.findOne({ user: req.sessionID }).then((wish) => {
+  Wishlist.findOne({ user: req.params.id }).then((wish) => {
     // si panier existe
     if (wish) {
       wish.items.push({
@@ -30,7 +30,7 @@ exports.addItemToWishlist = (req, res) => {
     } else {
       //pas de panier trouvé > création d'un panier
       const newWish = new Wishlist({
-        user: req.sessionID,
+        user: req.params.id,
         items: [
           {
             itemId: req.body._id,
@@ -48,10 +48,10 @@ exports.addItemToWishlist = (req, res) => {
 
 //suppression d'un item dans le panier
 exports.deleteItemFromWishlist = (req, res) => {
-  Wishlist.findOne({ user: req.sessionID })
+  Wishlist.findOne({ _id: req.params.wish })
     .then((wish) => {
       const itemIndex = wish.items.findIndex(
-        (item) => item.itemId == req.params.id
+        (item) => item._id == req.params.id
       );
       if (itemIndex > -1) {
         let item = wish.items[itemIndex];
@@ -71,7 +71,7 @@ exports.deleteItemFromWishlist = (req, res) => {
 
 //suppression du panier
 exports.deleteWishlist = (req, res) => {
-  Wishlist.deleteOne({ _id: req.params.id })
+  Wishlist.deleteOne({ _id: req.params.wish })
     .then(() => res.status(200).json({ message: "Wishlist supprimée !" }))
     .catch((error) => res.status(400).json({ error }));
 };
