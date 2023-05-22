@@ -9,7 +9,7 @@ const http = require("http");
 const app = require("./app");
 
 const hostname = process.env.SERVER_HOSTNAME;
-const port = process.env.SERVER_PORT;
+const port = process.env.SERVER_PORT || process.env.PORT;
 
 const server = http.createServer(app);
 
