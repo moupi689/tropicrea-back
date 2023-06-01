@@ -1,5 +1,6 @@
 //import des modules necessaires
 const express = require("express"); //gestion des routes
+const cors = require("cors"); //gestion erreurs CORS
 const morgan = require("morgan"); // logger de requetes
 const path = require("path");
 var parseurl = require("parseurl"); //recupére l'url
@@ -11,7 +12,6 @@ const usersRoutes = require("./routers/usersRoutes"); //routeur pour les users
 const adminRoutes = require("./routers/adminRoutes"); //routeur pour l admin
 const cartRoutes = require("./routers/cartRoutes"); //routeur pour le panier
 const wishlistRoutes = require("./routers/wishlistRoutes"); //routeur pour le panier
-const cors = require("cors"); //gestion erreurs CORS
 const mongoose = require("./db.config"); //connexion a MongoDB via Mongoose
 const auth = require("./middleware/auth");
 const { send } = require("process");
@@ -27,9 +27,8 @@ const app = express();
 //prévention des erreurs CORS
 app.use(
   cors({
-    origin: "http://127.0.0.1:5173",
+    origin: "*",
     credentials: true,
-    exposedHeaders: ["set-cookie"],
   })
 );
 

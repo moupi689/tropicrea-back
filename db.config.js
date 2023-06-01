@@ -10,10 +10,14 @@
 const mongoose = require("mongoose");
 
 //mongoDB atlas (cloud)
-//const mongoDB = `mongodb+srv://${process.env.DB_LOGIN}:${process.env.DB_PASSWORD}@cluster0.c6uutj6.mongodb.net/?retryWrites=true&w=majority`;
+const mongoDB =
+  "mongodb+srv://admin:admin2k@cluster0.xiyyyzx.mongodb.net/?retryWrites=true&w=majority";
+
+//mongoDB (local)
+//const mongoDB = "mongodb://localhost/tropicrea_database";
 
 mongoose
-  .connect("mongodb://localhost/tropicrea_database", {
+  .connect(mongoDB, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
