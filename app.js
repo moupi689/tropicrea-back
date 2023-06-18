@@ -12,11 +12,9 @@ const usersRoutes = require("./routers/usersRoutes"); //routeur pour les users
 const adminRoutes = require("./routers/adminRoutes"); //routeur pour l admin
 const cartRoutes = require("./routers/cartRoutes"); //routeur pour le panier
 const wishlistRoutes = require("./routers/wishlistRoutes"); //routeur pour le panier
-const mongoose = require("./db.config"); //connexion a MongoDB via Mongoose
 const auth = require("./middleware/auth");
 const { send } = require("process");
 
-/*
 //connection a mongoDB via mongoose en local ou cloud (atlas)
 const mongoose = require("./db.config"); //connexion a MongoDB via Mongoose
 const MongoDBStore = require("connect-mongodb-session")(session);
@@ -24,8 +22,8 @@ const store = new MongoDBStore({
   uri: process.env.DB_PATH_LOCAL,
   collection: "sessions",
 });
-*/
 
+/*
 //connection à mongoDB avec cluster partégé digitalOcean
 
 const { MongoClient } = require("mongodb");
@@ -56,6 +54,8 @@ async function listDatabases(client) {
 }
 
 main().catch(console.error);
+
+*/
 
 //initialisation API
 const app = express();

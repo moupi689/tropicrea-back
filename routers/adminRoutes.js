@@ -4,9 +4,9 @@ const router = express.Router();
 const adminCtrl = require("../controllers/adminController");
 const auth = require("../middleware/auth");
 
-//router.get("/", adminCtrl.getAdmin);
+router.get("/", adminCtrl.getAdmin);
 //router.get("/:id", adminCtrl.deleteAdmin);
-//router.post("/signup", adminCtrl.signupAdmin);
+router.post("/signup", adminCtrl.signupAdmin);
 
 router.post("/login", adminCtrl.loginAdmin); //appel du controller dans /controllers
 router.post("/logout", adminCtrl.logoutAdmin); //appel du controller dans /controllers
