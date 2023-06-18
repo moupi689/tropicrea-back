@@ -10,11 +10,11 @@
 const mongoose = require("mongoose");
 
 //mongoDB atlas (cloud)
-const mongoDB =
-  "mongodb+srv://admin:admin2k@cluster0.xiyyyzx.mongodb.net/?retryWrites=true&w=majority";
+//const mongoDB =
+("mongodb+srv://admin:admin2k@cluster0.xiyyyzx.mongodb.net/?retryWrites=true&w=majority");
 
 //mongoDB (local)
-//const mongoDB = "mongodb://localhost/tropicrea_database";
+const mongoDB = "mongodb://localhost/tropicrea_database";
 
 mongoose
   .connect(mongoDB, {
