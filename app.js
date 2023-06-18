@@ -15,11 +15,47 @@ const wishlistRoutes = require("./routers/wishlistRoutes"); //routeur pour le pa
 const mongoose = require("./db.config"); //connexion a MongoDB via Mongoose
 const auth = require("./middleware/auth");
 const { send } = require("process");
+
+/*
+//connection a mongoDB via mongoose en local ou cloud (atlas)
+const mongoose = require("./db.config"); //connexion a MongoDB via Mongoose
 const MongoDBStore = require("connect-mongodb-session")(session);
 const store = new MongoDBStore({
   uri: process.env.DB_PATH_LOCAL,
   collection: "sessions",
 });
+*/
+
+//connection à mongoDB avec cluster partégé digitalOcean
+
+const { MongoClient } = require("mongodb");
+
+async function main() {
+  const uri =
+    "mongodb+srv://doadmin:q20C91vjFim34y75@db-mongodb-nyc3-30974-d2b124af.mongo.ondigitalocean.com/admin?tls=true&authSource=admin&replicaSet=db-mongodb-nyc3-30974";
+  const client = new MongoClient(uri);
+
+  try {
+    // Connect to the MongoDB cluster
+    await client.connect();
+
+    // Make the appropriate DB calls
+    await listDatabases(client);
+  } catch (e) {
+    console.error(e);
+  } finally {
+    await client.close();
+  }
+}
+
+async function listDatabases(client) {
+  databasesList = await client.db().admin().listDatabases();
+
+  console.log("Connected successfully. Databases:");
+  databasesList.databases.forEach((db) => console.log(` - ${db.name}`));
+}
+
+main().catch(console.error);
 
 //initialisation API
 const app = express();
@@ -39,7 +75,7 @@ app.use(
   session({
     name: "tropicrea_session",
     secret: "tropicrea",
-    store: store,
+    //store: store,
     unset: "destroy",
     saveUninitialized: true,
     cookie: { maxAge: oneDay, sameSite: "lax", httpOnly: false },
